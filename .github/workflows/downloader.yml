@@ -1,0 +1,24 @@
+name: 下载文件并推送到ftp
+on:
+  workflow_dispatch:
+    watch:
+      types: started
+    repository_dispatch:
+      types: get_v2ray
+jobs:
+  downloader:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: '开始下载'
+        env:
+          ftphost: ${{ secrets.ftphost }}
+          ftpusername: ${{ secrets.ftpusername }}
+          ftppasswd: ${{ secrets.ftppasswd }}
+        run: |
+          git clone -b master https://github.com/ronghuaxueleng/downloader-python.git .
+          pip install -r requirements.txt
+          python3 downloader.py "$ftphost" "$ftphost" "ftppasswd"
