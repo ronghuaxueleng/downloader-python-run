@@ -10,29 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 设置githup信息
-        env:
-          email: ${{ secrets.EMAIL }}
-          username: ${{ secrets.USERNAME }}
-        run: |
-          git config --global user.name "$username"
-          git config --global user.email "$email"
-      - name: 设置SSH私钥信息
-        env:
-          GITHUP_REPO_URL: github.com
-          GITHUP: githup_scripts
-          GITHUP_HOST: githup
-          GITHUP_KEY: ${{ secrets.token_Private_Keys }}
-        run: |
-          mkdir -p ~/.ssh/ && chmod 700 ~/.ssh
-          echo "$GITHUP_KEY" > ~/.ssh/$GITHUP
-          chmod 600 ~/.ssh/$GITHUP
-          echo -e "\n" >> ~/.ssh/config
-          echo -e "Host $GITHUP_HOST" >> ~/.ssh/config
-          echo -e "\tHostname $GITHUP_REPO_URL" >> ~/.ssh/config
-          echo -e "\tIdentityFile=~/.ssh/$GITHUP" >> ~/.ssh/config
-          # echo -e "\n\nHost *\n StrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
-          chmod 644 ~/.ssh/config
-          ssh-keyscan $GITHUP_REPO_URL >> ~/.ssh/known_hosts
+      env:
+        email: ${{ secrets.EMAIL }}
+        username: ${{ secrets.USERNAME }}
+      run: |
+        git config --global user.name "$username"
+        git config --global user.email "$email"
+    - name: 设置SSH私钥信息
+      env:
+        GITHUP_REPO_URL: github.com
+        GITHUP: githup_scripts
+        GITHUP_HOST: githup
+        GITHUP_KEY: ${{ secrets.token_Private_Keys }}
+      run: |
+        mkdir -p ~/.ssh/ && chmod 700 ~/.ssh
+        echo "$GITHUP_KEY" > ~/.ssh/$GITHUP
+        chmod 600 ~/.ssh/$GITHUP
+        echo -e "\n" >> ~/.ssh/config
+        echo -e "Host $GITHUP_HOST" >> ~/.ssh/config
+        echo -e "\tHostname $GITHUP_REPO_URL" >> ~/.ssh/config
+        echo -e "\tIdentityFile=~/.ssh/$GITHUP" >> ~/.ssh/config
+        # echo -e "\n\nHost *\n StrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
+        chmod 644 ~/.ssh/config
+        ssh-keyscan $GITHUP_REPO_URL >> ~/.ssh/known_hosts
       - name: '使用python'
         uses: actions/setup-python@v1
         with:
