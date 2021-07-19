@@ -31,7 +31,7 @@ jobs:
         echo -e "\tHostname $GITHUP_REPO_URL" >> ~/.ssh/config
         echo -e "\tIdentityFile=~/.ssh/$GITHUP" >> ~/.ssh/config
         chmod 644 ~/.ssh/config
-        ssh-keyscan $GITHUP_REPO_URL >> ~/.ssh/known_hosts
+        ssh-keyscan "$GITHUP_REPO_URL" >> ~/.ssh/known_hosts
       - name: '使用python'
         uses: actions/setup-python@v1
         with:
