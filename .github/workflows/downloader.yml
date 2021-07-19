@@ -1,10 +1,10 @@
 name: 下载文件并推送到ftp
 on:
   workflow_dispatch:
-    watch:
-      types: started
-    repository_dispatch:
-      types: get_v2ray
+  watch:
+    types: started
+  repository_dispatch:
+    types: downloader
 jobs:
   downloader:
     runs-on: ubuntu-latest
