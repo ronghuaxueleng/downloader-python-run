@@ -30,7 +30,6 @@ jobs:
         echo -e "Host $GITHUP_HOST" >> ~/.ssh/config
         echo -e "\tHostname $GITHUP_REPO_URL" >> ~/.ssh/config
         echo -e "\tIdentityFile=~/.ssh/$GITHUP" >> ~/.ssh/config
-        # echo -e "\n\nHost *\n StrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
         chmod 644 ~/.ssh/config
         ssh-keyscan $GITHUP_REPO_URL >> ~/.ssh/known_hosts
       - name: '使用python'
